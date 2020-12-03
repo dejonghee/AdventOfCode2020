@@ -1,4 +1,7 @@
-﻿namespace AdventOfCode2020.ConsoleApp
+﻿using System;
+using AdventOfCode.Core;
+
+namespace AdventOfCode2020.ConsoleApp
 {
     public class Program
     {
@@ -25,6 +28,17 @@
             // Day 2 - Part 2
             //var validPart2 = new Day2.Part2().Solve(inputDay2);
             //Console.WriteLine($"Valid: {validPart2}");
+
+            // Day 3
+            //var inputDay3 = Day3.GetData();
+
+            // Day 2 - Part 1
+            //var validPart1 = new Day3.Part1().Solve(inputDay3);
+            //Console.WriteLine($"Count: {validPart1}");
+
+            // Day 2 - Part 2
+            //var validPart2 = new Day3.Part2().Solve(inputDay3);
+            //Console.WriteLine($"Count: {validPart2}");
         }
     }
 }
