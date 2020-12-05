@@ -33,20 +33,36 @@ namespace AdventOfCode2020.ConsoleApp
             // Day 3
             //var inputDay3 = Day3.GetData();
 
-            // Day 2 - Part 1
+            // Day 3 - Part 1
             //var validPart1 = new Day3.Part1().Solve(inputDay3);
             //Console.WriteLine($"Count: {validPart1}");
 
-            // Day 2 - Part 2
+            // Day 3 - Part 2
             //var validPart2 = new Day3.Part2().Solve(inputDay3);
             //Console.WriteLine($"Count: {validPart2}");
 
-            // Day 3 - Part 1
-            using(var dataReader = new DataReader("InputDay4.txt"))
+            // Day 4 - Part 1
+            //using(var dataReader = new DataReader("InputDay4.txt"))
+            //{
+            //    var input = dataReader.GetData();
+            //    var solution = new Day4.Part1().Solve(input);
+            //    Console.WriteLine($"Valid: {solution}");
+            //}
+
+            // Day 5 - Part 1
+            //using (var dataReader = new DataReader("InputDay5.txt"))
+            //{
+            //    var input = dataReader.GetData();
+            //    var solution = new Day5.Part1().Solve(input);
+            //    Console.WriteLine($"Max: {solution}");
+            //}
+
+            // Day 5 - Part 6
+            using (var dataReader = new DataReader("InputDay5.txt"))
             {
                 var input = dataReader.GetData();
-                var solution = new Day4.Part1().Solve(input);
-                Console.WriteLine($"Valid: {solution}");
+                var solution = new Day5.Part2().Solve(input);
+                Console.WriteLine($"Max: {solution}");
             }
         }
     }
