@@ -1,5 +1,6 @@
 ﻿using System;
 using AdventOfCode.Core;
+using AdventOfCode.Core.Utils;
 
 namespace AdventOfCode2020.ConsoleApp
 {
@@ -39,6 +40,14 @@ namespace AdventOfCode2020.ConsoleApp
             // Day 2 - Part 2
             //var validPart2 = new Day3.Part2().Solve(inputDay3);
             //Console.WriteLine($"Count: {validPart2}");
+
+            // Day 3 - Part 1
+            using(var dataReader = new DataReader("InputDay4.txt"))
+            {
+                var input = dataReader.GetData();
+                var solution = new Day4.Part1().Solve(input);
+                Console.WriteLine($"Valid: {solution}");
+            }
         }
     }
 }
