@@ -26,7 +26,7 @@ namespace AdventOfCode.ConsoleApp
             if (day == null || day == 3)
             {
                 await SolveAsync<Day3.Part1, long>(solution => $"Count = {solution}", s => s == 220);
-                await SolveAsync<Day3.Part2, long>(solution => $"Count = {solution}", s => s == 2138320800); // TODO fix! Is broke since async refa.
+                await SolveAsync<Day3.Part2, long>(solution => $"Count = {solution}", s => s == 2138320800);
             }
 
             if (day == null || day == 4)
