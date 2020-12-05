@@ -1,34 +1,42 @@
 ﻿using System.Collections.Generic;
-using System.IO;
+using System.Threading.Tasks;
 
 namespace AdventOfCode.Core
 {
     public class Day2
     {
-        public class Part1
+        public class Part1 : IProblem<int>
         {
-            public int Solve(Record[] input)
+            public async Task<int> SolveAsync(IAsyncEnumerable<string> input)
             {
                 var valid = 0;
 
-                foreach (var entry in input)
+                await foreach (var rawData in input)
                 {
+                    var parts = rawData.Split(' ');
+                    var numbers = parts[0].Split('-');
+
+                    var min = int.Parse(numbers[0]);
+                    var max = int.Parse(numbers[1]);
+                    var expectedCharacter = parts[1][0];
+                    var password = parts[2];
+
                     var count = 0;
 
-                    foreach (var character in entry.Pwd)
+                    foreach (var character in password)
                     {
-                        if (character == entry.C)
+                        if (character == expectedCharacter)
                         {
                             count++;
 
-                            if (count > entry.Y)
+                            if (count > max)
                             {
                                 break;
                             }
                         }
                     }
 
-                    if (count >= entry.X && count <= entry.Y)
+                    if (count >= min && count <= max)
                     {
                         valid++;
                     }
@@ -38,23 +46,29 @@ namespace AdventOfCode.Core
             }
         }
 
-        public class Part2
+        public class Part2 : IProblem<int>
         {
-            public int Solve(Record[] input)
+            public async Task<int> SolveAsync(IAsyncEnumerable<string> input)
             {
                 var valid = 0;
 
-                foreach (var entry in input)
+                await foreach (var rawData in input)
                 {
-                    var index1 = entry.X - 1;
-                    var index2 = entry.Y - 1;
+                    var parts = rawData.Split(' ');
+                    var numbers = parts[0].Split('-');
 
-                    char? char1 = index1 >= 0 && index1 < entry.Pwd.Length ? entry.Pwd[index1] : null;
-                    char? char2 = index2 >= 0 && index2 < entry.Pwd.Length ? entry.Pwd[index2] : null;
+                    var expectedCharacter = parts[1][0];
+                    var password = parts[2];
+
+                    var index1 = int.Parse(numbers[0]) - 1;
+                    var index2 = int.Parse(numbers[1]) - 1;
+
+                    char? char1 = index1 >= 0 && index1 < password.Length ? password[index1] : null;
+                    char? char2 = index2 >= 0 && index2 < password.Length ? password[index2] : null;
 
                     if ((char1 != null && char2 != null) &&
-                        (char1 == entry.C && char2 != entry.C ||
-                        char1 != entry.C && char2 == entry.C))
+                        (char1 == expectedCharacter && char2 != expectedCharacter ||
+                        char1 != expectedCharacter && char2 == expectedCharacter))
                     {
                         valid++;
                     }
@@ -63,27 +77,5 @@ namespace AdventOfCode.Core
                 return valid;
             }
         }
-
-        public static Record[] GetData()
-        {
-            var data = new List<Record>();
-            using (var reader = File.OpenText("InputDay2.txt"))
-            {
-                var line = string.Empty;
-                while ((line = reader.ReadLine()) != null)
-                {
-                    var parts = line.Split(' ');
-                    var numbers = parts[0].Split('-');
-                    var character = parts[1][0];
-                    var password = parts[2];
-
-                    data.Add(new Record(int.Parse(numbers[0]), int.Parse(numbers[1]), character, password));
-                }
-            }
-
-            return data.ToArray();
-        }
-
-        public record Record(int X, int Y, char C, string Pwd);
     }
 }

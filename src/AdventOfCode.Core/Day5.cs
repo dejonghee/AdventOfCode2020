@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace AdventOfCode.Core
 {
@@ -9,13 +10,13 @@ namespace AdventOfCode.Core
         private const int planeRows = 128;
         private const int planeColumns = 8;
 
-        public class Part1
+        public class Part1 : IProblem<int>
         {
-            public int Solve(IEnumerable<string> input)
+            public async Task<int> SolveAsync(IAsyncEnumerable<string> input)
             {
                 var highestSeatId = -1;
 
-                foreach (var boardingPass in input)
+                await foreach (var boardingPass in input)
                 {
                     var seatId = GetSeat(boardingPass).Id;
                     if (seatId > highestSeatId)
@@ -78,32 +79,32 @@ namespace AdventOfCode.Core
             }
         }
 
-        public class Part2
+        public class Part2 : IProblem<int>
         {
-            public int Solve(IEnumerable<string> input)
+            public async Task<int> SolveAsync(IAsyncEnumerable<string> input)
             {
                 var part1 = new Part1();
                 var plane = new bool[planeRows, planeColumns];
                 var seats = new List<Seat>();
 
-                foreach(var boardingPass in input)
+                await foreach (var boardingPass in input)
                 {
                     var seat = part1.GetSeat(boardingPass);
                     plane[seat.Row, seat.Column] = true;
                     seats.Add(seat);
                 }
 
-                for(int row = 1; row < planeRows - 1; row++)
+                for (int row = 1; row < planeRows - 1; row++)
                 {
-                    for(int column = 0; column < planeColumns; column++)
+                    for (int column = 0; column < planeColumns; column++)
                     {
-                        if(plane[row, column] == false)
+                        if (plane[row, column] == false)
                         {
                             var seat = new Seat(row, column);
                             var seatX = seats.FirstOrDefault(x => x.Id == seat.Id - 1);
                             var seatY = seats.FirstOrDefault(x => x.Id == seat.Id + 1);
 
-                            if(seatX != null && seatY != null)
+                            if (seatX != null && seatY != null)
                             {
                                 return new Seat(row, column).Id;
                             }

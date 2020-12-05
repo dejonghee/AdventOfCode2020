@@ -18,10 +18,10 @@ namespace AdventOfCode.Core.Utils
             _streamReader = File.OpenText(_fileName);
         }
 
-        public IEnumerable<string> GetData()
+        public async IAsyncEnumerable<string> GetDataAsync()
         {
             string line;
-            while ((line = _streamReader.ReadLine()) != null)
+            while ((line = await _streamReader.ReadLineAsync()) != null)
             {
                 yield return line;
             }

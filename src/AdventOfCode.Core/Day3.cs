@@ -1,65 +1,57 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace AdventOfCode.Core
 {
     public class Day3
     {
-        public class Part1
+        public class Part1 : IProblem<long>
         {
-            public int Solve(string[] input, int right = 3, int down = 1)
+            public async Task<long> SolveAsync(IAsyncEnumerable<string> input)
             {
-                var cols = input[0].Length;
-                var rows = input.Length;
+                return await SolveAsync(input, 3, 1);
+            }
 
-                // Start in top left.
-                var row = 0;
+            public async Task<long> SolveAsync(IAsyncEnumerable<string> input, int right, int down)
+            {
                 var col = 0;
                 var treeCount = 0;
 
-                while(row < rows)
+                var enumerator = input.GetAsyncEnumerator();
+                while(await enumerator.MoveNextAsync())
                 {
-                    if(input[row][col] == '#')
+                    var line = enumerator.Current;
+                    if(line[col] == '#')
                     {
                         treeCount++;
                     }
 
-                    row += down;
-                    col = (col + right) % cols;
+                    for(var i = 0; i < down - 1; i++)
+                    {
+                        await enumerator.MoveNextAsync();
+                    }
+
+                    col = (col + right) % line.Length;
                 }
 
                 return treeCount;
             }
         }
 
-        public class Part2
+        public class Part2 : IProblem<long>
         {
-            public int Solve(string[] input)
+            public async Task<long> SolveAsync(IAsyncEnumerable<string> input)
             {
                 var part1 = new Part1();
-                var a = part1.Solve(input, 1, 1);
-                var b = part1.Solve(input, 3, 1);
-                var c = part1.Solve(input, 5, 1);
-                var d = part1.Solve(input, 7, 1);
-                var e = part1.Solve(input, 1, 2);
+                var a = await part1.SolveAsync(input, 1, 1);
+                var b = await part1.SolveAsync(input, 3, 1);
+                var c = await part1.SolveAsync(input, 5, 1);
+                var d = await part1.SolveAsync(input, 7, 1);
+                var e = await part1.SolveAsync(input, 1, 2);
 
                 return a * b * c * d * e;
             }
-        }
-
-        public static string[] GetData()
-        {
-            var data = new List<string>();
-            using (var reader = File.OpenText("InputDay3.txt"))
-            {
-                var line = string.Empty;
-                while ((line = reader.ReadLine()) != null)
-                {
-                    data.Add(line);
-                }
-            }
-
-            return data.ToArray();
         }
     }
 }
