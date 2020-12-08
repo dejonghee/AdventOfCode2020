@@ -9,7 +9,7 @@ namespace AdventOfCode.ConsoleApp
     {
         public static async Task Main(string[] args)
         {
-            int? day = 7; // null; //
+            int? day = 8; // null; //
 
             if (day == null || day == 1)
             {
@@ -51,6 +51,12 @@ namespace AdventOfCode.ConsoleApp
             {
                 //await SolveAsync<Day7.Part1, int>(solution => $"Combinations = {solution}", s => s == 226);
                 await SolveAsync<Day7.Part2, long>(solution => $"Combinations = {solution}");
+            }
+
+            if (day == null || day == 8)
+            {
+                await SolveAsync<Day8.Part1, int>(solution => $"Accumulator = {solution}", s => s == 1814);
+                await SolveAsync<Day8.Part2, int>(solution => $"Accumulator = {solution}", s => s == 1056);
             }
         }
 
