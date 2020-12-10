@@ -5,7 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="C5" Version="2.5.3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="InputDay1.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="InputDay10.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="InputDay2.txt">
