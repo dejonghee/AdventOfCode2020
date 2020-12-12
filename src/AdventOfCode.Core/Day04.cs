@@ -7,9 +7,12 @@ using AdventOfCode.Core.Utils;
 
 namespace AdventOfCode.Core
 {
-    public class Day04
+    public class Day04 : Day<int, int>
     {
-        public class Part1 : IProblem<int>
+        protected override IProblem<int> GetPart1() => new Part1();
+        protected override IProblem<int> GetPart2() => new Part2();
+
+        private class Part1 : IProblem<int>
         {
             public async Task<int> SolveAsync(IAsyncEnumerable<string> rawData)
             {
@@ -88,7 +91,7 @@ namespace AdventOfCode.Core
             }
         }
 
-        public class Part2 : Part1
+        private class Part2 : Part1
         {
             private static readonly Regex HairColorRegex = new Regex(@"^#[a-z0-9]{6}$", RegexOptions.Compiled);
             private static readonly Regex PassportIdRegex = new Regex(@"^[0-9]{9}$", RegexOptions.Compiled);

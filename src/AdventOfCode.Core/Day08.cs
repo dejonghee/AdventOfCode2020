@@ -6,9 +6,12 @@ using AdventOfCode.Core.Utils;
 
 namespace AdventOfCode.Core
 {
-    public class Day08
+    public class Day08 : Day<int, int>
     {
-        public class Part1 : IProblem<int>
+        protected override IProblem<int> GetPart1() => new Part1();
+        protected override IProblem<int> GetPart2() => new Part2();
+
+        private class Part1 : IProblem<int>
         {
             public async Task<int> SolveAsync(IAsyncEnumerable<string> input)
             {
@@ -56,7 +59,7 @@ namespace AdventOfCode.Core
             }
         }
 
-        public class Part2 : IProblem<int>
+        private class Part2 : IProblem<int>
         {
             public async Task<int> SolveAsync(IAsyncEnumerable<string> input)
             {

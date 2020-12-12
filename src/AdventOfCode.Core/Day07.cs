@@ -6,9 +6,12 @@ using AdventOfCode.Core.Utils;
 
 namespace AdventOfCode.Core
 {
-    public class Day07
+    public class Day07 : Day<int, int>
     {
-        public class Part1 : IProblem<int>
+        protected override IProblem<int> GetPart1() => new Part1();
+        protected override IProblem<int> GetPart2() => new Part2();
+
+        private class Part1 : IProblem<int>
         {
             private static readonly Regex Pattern = new Regex("^(.*) bags contain( ([0-9]+) ([a-z ]+) bag[s]?[,.])+", RegexOptions.Compiled);
 
@@ -55,11 +58,11 @@ namespace AdventOfCode.Core
             }
         }
 
-        public class Part2 : IProblem<long>
+        private class Part2 : IProblem<int>
         {
             private static readonly Regex Pattern = new Regex("^(.*) bags contain( ([0-9]+) ([a-z ]+) bag[s]?[,.])+", RegexOptions.Compiled);
 
-            public async Task<long> SolveAsync(IAsyncEnumerable<string> input)
+            public async Task<int> SolveAsync(IAsyncEnumerable<string> input)
             {
                 var lookup = new Dictionary<string, List<(string bagName, int count)>>();
 
@@ -85,34 +88,20 @@ namespace AdventOfCode.Core
                 return count;
             }
 
-            private long count = 0;
+            private int count = 0;
 
             public void GetStuff(Dictionary<string, List<(string bagName, int count)>> data, string bag, int multiplier)
             {
                 if (data.TryGetValue(bag, out var info))
                 {
-                    foreach(var x in info)
+                    foreach (var x in info)
                     {
                         var additional = (x.count * multiplier);
                         count += additional;
                         GetStuff(data, x.bagName, additional);
                     }
                 }
-                else
-                {
-
-                }
             }
         }
     }
 }
-
-//> Gold
-//    > 3 x Red
-//        > 2 x Blue
-//        > 1 x Green
-//    > 4 x Yellow
-//    > 2 x Grey
-//        > 2 x Black
-//           > 2x Grey
-//           > 2x Pink

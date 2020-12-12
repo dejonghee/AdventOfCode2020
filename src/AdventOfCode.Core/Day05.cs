@@ -6,12 +6,15 @@ using AdventOfCode.Core.Utils;
 
 namespace AdventOfCode.Core
 {
-    public class Day05
+    public class Day05 : Day<int, int>
     {
         private const int planeRows = 128;
         private const int planeColumns = 8;
 
-        public class Part1 : IProblem<int>
+        protected override IProblem<int> GetPart1() => new Part1();
+        protected override IProblem<int> GetPart2() => new Part2();
+
+        private class Part1 : IProblem<int>
         {
             public async Task<int> SolveAsync(IAsyncEnumerable<string> input)
             {
@@ -80,7 +83,7 @@ namespace AdventOfCode.Core
             }
         }
 
-        public class Part2 : IProblem<int>
+        private class Part2 : IProblem<int>
         {
             public async Task<int> SolveAsync(IAsyncEnumerable<string> input)
             {
@@ -117,7 +120,7 @@ namespace AdventOfCode.Core
             }
         }
 
-        public class Seat
+        private class Seat
         {
             public int Row { get; }
             public int Column { get; }

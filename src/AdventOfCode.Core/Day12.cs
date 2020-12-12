@@ -5,16 +5,19 @@ using AdventOfCode.Core.Utils;
 
 namespace AdventOfCode.Core
 {
-    public class Day12
+    public class Day12 : Day<int, int>
     {
-        public class Part1 : IProblem<long>
+        protected override IProblem<int> GetPart1() => new Part1();
+        protected override IProblem<int> GetPart2() => new Part2();
+
+        private class Part1 : IProblem<int>
         {
-            public virtual async Task<long> SolveAsync(IAsyncEnumerable<string> input)
+            public virtual async Task<int> SolveAsync(IAsyncEnumerable<string> input)
             {
                 return await SolveProblemAsync<Ship>(input);
             }
 
-            protected async Task<long> SolveProblemAsync<TShip>(IAsyncEnumerable<string> input)
+            protected async Task<int> SolveProblemAsync<TShip>(IAsyncEnumerable<string> input)
                 where TShip : Ship, new()
             {
                 var ship = new TShip();
@@ -164,7 +167,7 @@ namespace AdventOfCode.Core
                     }
                 }
 
-                public long GetManhattanDistance()
+                public int GetManhattanDistance()
                 {
                     return Math.Abs(Position.north) + Math.Abs(Position.east);
                 }
@@ -176,9 +179,9 @@ namespace AdventOfCode.Core
             }
         }
 
-        public class Part2 : Part1
+        private class Part2 : Part1
         {
-            public override async Task<long> SolveAsync(IAsyncEnumerable<string> input)
+            public override async Task<int> SolveAsync(IAsyncEnumerable<string> input)
             {
                 return await SolveProblemAsync<ShipWithWaypoint>(input);
             }

@@ -6,13 +6,16 @@ using AdventOfCode.Core.Utils;
 
 namespace AdventOfCode.Core
 {
-    public class Day06
+    public class Day06 : Day<int, int>
     {
-        public class Part1 : IProblem<long>
+        protected override IProblem<int> GetPart1() => new Part1();
+        protected override IProblem<int> GetPart2() => new Part2();
+
+        private class Part1 : IProblem<int>
         {
-            public async Task<long> SolveAsync(IAsyncEnumerable<string> input)
+            public async Task<int> SolveAsync(IAsyncEnumerable<string> input)
             {
-                var sum = 0L;
+                var sum = 0;
 
                 var uniqueGroupAnswers = new HashSet<char>(26);
 
@@ -42,11 +45,11 @@ namespace AdventOfCode.Core
             }
         }
 
-        public class Part2 : IProblem<long>
+        private class Part2 : IProblem<int>
         {
-            public async Task<long> SolveAsync(IAsyncEnumerable<string> input)
+            public async Task<int> SolveAsync(IAsyncEnumerable<string> input)
             {
-                var sum = 0L;
+                var sum = 0;
 
                 var answerCount = new int[26];
                 var nrOfGroupMembers = 0;

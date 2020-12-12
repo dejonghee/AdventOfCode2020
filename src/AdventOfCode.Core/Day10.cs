@@ -7,11 +7,14 @@ using C5;
 
 namespace AdventOfCode.Core
 {
-    public class Day10
+    public class Day10 : Day<int, long>
     {
-        public class Part1 : IProblem<long>
+        protected override IProblem<int> GetPart1() => new Part1();
+        protected override IProblem<long> GetPart2() => new Part2();
+
+        private class Part1 : IProblem<int>
         {
-            public async Task<long> SolveAsync(IAsyncEnumerable<string> input)
+            public async Task<int> SolveAsync(IAsyncEnumerable<string> input)
             {
                 var adapters = new SortedSet<long>();
                 await foreach (var line in input)
@@ -20,8 +23,8 @@ namespace AdventOfCode.Core
                 }
 
                 var current = 0L;
-                var amountOneJolt = 0L;
-                var amountThreeJolts = 0L;
+                var amountOneJolt = 0;
+                var amountThreeJolts = 0;
                 foreach (var adapter in adapters)
                 {
                     var diff = adapter - current;
