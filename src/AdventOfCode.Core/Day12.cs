@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AdventOfCode.Core.Utils;
 
 namespace AdventOfCode.Core
 {
@@ -103,7 +104,8 @@ namespace AdventOfCode.Core
                             Direction.North => Direction.West,
                             Direction.West => Direction.South,
                             Direction.South => Direction.East,
-                            Direction.East => Direction.North
+                            Direction.East => Direction.North,
+                            _ => throw new NotImplementedException()
                         };
 
                         return true;
@@ -137,7 +139,8 @@ namespace AdventOfCode.Core
                             Direction.North => Direction.East,
                             Direction.East => Direction.South,
                             Direction.South => Direction.West,
-                            Direction.West => Direction.North
+                            Direction.West => Direction.North,
+                            _ => throw new NotImplementedException()
                         };
 
                         return true;

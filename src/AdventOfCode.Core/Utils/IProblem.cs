@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace AdventOfCode.Core
+namespace AdventOfCode.Core.Utils
 {
     public interface IProblem<TSolution>
     {

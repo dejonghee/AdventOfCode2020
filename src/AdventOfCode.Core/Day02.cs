@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using AdventOfCode.Core.Utils;
 
 namespace AdventOfCode.Core
 {

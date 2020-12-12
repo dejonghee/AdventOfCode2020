@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AdventOfCode.Core.Utils;
 using C5;
 
 namespace AdventOfCode.Core
@@ -61,7 +62,7 @@ namespace AdventOfCode.Core
 
             private long Explore(SortedArray<long> adapters, int index = 0)
             {
-                if(index == 0)
+                if (index == 0)
                 {
                     // Init cache when processing first item.
                     _cache = new long[adapters.Count];
@@ -82,7 +83,7 @@ namespace AdventOfCode.Core
                     // Reached end of path.
                     return 1;
                 }
-                
+
                 return branches.Sum(x =>
                 {
                     if (_cache[x] == 0)

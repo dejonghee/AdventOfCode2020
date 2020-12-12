@@ -82,6 +82,12 @@ namespace AdventOfCode.ConsoleApp
                 await SolveAsync<Day12.Part1, long>(solution => $"Answer = {solution}", s => s == 2057);
                 await SolveAsync<Day12.Part2, long>(solution => $"Answer = {solution}", s => s == 71504);
             }
+
+            if (day == null || day == 13)
+            {
+                await SolveAsync<Day13.Part1, long>(solution => $"Answer = {solution}");//, s => s == 2057);
+                await SolveAsync<Day13.Part2, long>(solution => $"Answer = {solution}");//, s => s == 71504);
+            }
         }
 
         private static async Task SolveAsync<TProblem, TSolution>(Func<TSolution, string> printer, Func<TSolution, bool> assert = null)
@@ -91,7 +97,7 @@ namespace AdventOfCode.ConsoleApp
             Console.WriteLine($"Trying to solve {problemType.Name} of {problemType.ReflectedType.Name}...");
 
             var dayId = problemType.ReflectedType.Name.Substring(3);
-            var inputFile = $"InputDay{dayId}.txt";
+            var inputFile = $"Input/InputDay{dayId}.txt";
 
             using (var dataReader = new DataReader(inputFile))
             {
