@@ -7,7 +7,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode.Core", "src\Ad
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{A73D0BB3-3194-4ECB-B675-9A7281660A3A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventOfCode.UnitTests", "test\AdventOfCode.UnitTests\AdventOfCode.UnitTests.csproj", "{1934AE44-D213-4680-95D9-85AC4560B5E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode.UnitTests", "test\AdventOfCode.UnitTests\AdventOfCode.UnitTests.csproj", "{1934AE44-D213-4680-95D9-85AC4560B5E9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{D57CA1CC-4B55-4A28-B5EC-AC648C5BC63E}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\ci.yml = .github\workflows\ci.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
