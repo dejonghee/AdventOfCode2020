@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AdventOfCode.Core;
 using AdventOfCode.Core.Utils;
@@ -80,33 +81,82 @@ namespace AdventOfCode.UnitTests
             await Validate<Day12, int, int>(2057, 71504);
         }
 
+        //[TestMethod]
+        //public async Task Day13()
+        //{
+        //    var input = ToAsyncEnumerable("a", "b", "c", "d");
+        //    await ValidatePart1<Day13, long, long>(2057, input: input);
+        //}
+
+        #region Helpers
+
         private static async Task Validate<TDay, TSolutionPart1, TSolutionPart2>(TSolutionPart1 solutionPart1, TSolutionPart2 solutionPart2)
-            where TDay : IDay<TSolutionPart1, TSolutionPart2>, new()
+            where TDay : class, IDay<TSolutionPart1, TSolutionPart2>, new()
         {
             var day = new TDay();
-            var inputFile = $"Input/{typeof(TDay).Name}.txt";
 
-            if (solutionPart1 != null)
+            await ValidatePart1<TDay, TSolutionPart1, TSolutionPart2>(solutionPart1, day: day);
+            await ValidatePart2<TDay, TSolutionPart1, TSolutionPart2>(solutionPart2, day: day);
+        }
+
+        private static async Task ValidatePart1<TDay, TSolutionPart1, TSolutionPart2>(TSolutionPart1 solutionPart1, IAsyncEnumerable<string> input = null, TDay day = null)
+            where TDay : class, IDay<TSolutionPart1, TSolutionPart2>, new()
+        {
+            day ??= new TDay();
+
+            if (input == null)
             {
+                var inputFile = $"Input/{typeof(TDay).Name}.txt";
                 using (var dataReader = new DataReader(inputFile))
                 {
-                    var input = dataReader.GetDataAsync();
+                    input = dataReader.GetDataAsync();
                     var solution = await day.SolvePart1Async(input);
-
                     Assert.AreEqual(solutionPart1, solution);
                 }
             }
-
-            if (solutionPart2 != null)
+            else
             {
+                var solution = await day.SolvePart1Async(input);
+                Assert.AreEqual(solutionPart1, solution);
+            }
+        }
+
+        private static async Task ValidatePart2<TDay, TSolutionPart1, TSolutionPart2>(TSolutionPart2 solutionPart2, IAsyncEnumerable<string> input = null, TDay day = null)
+            where TDay : class, IDay<TSolutionPart1, TSolutionPart2>, new()
+        {
+            day ??= new TDay();
+
+            if (input == null)
+            {
+                var inputFile = $"Input/{typeof(TDay).Name}.txt";
                 using (var dataReader = new DataReader(inputFile))
                 {
-                    var input = dataReader.GetDataAsync();
+                    input = dataReader.GetDataAsync();
                     var solution = await day.SolvePart2Async(input);
-
                     Assert.AreEqual(solutionPart2, solution);
                 }
             }
+            else
+            {
+                var solution = await day.SolvePart2Async(input);
+                Assert.AreEqual(solutionPart2, solution);
+            }
         }
+
+        /// <summary>
+        /// Helper method to create test input for our problems.
+        /// </summary>
+        private static async IAsyncEnumerable<string> ToAsyncEnumerable(params string[] input)
+        {
+            foreach(var str in input)
+            {
+                yield return str;
+            }
+
+            // To avoid warning about async method being sync.
+            await Task.CompletedTask;
+        }
+
+        #endregion
     }
 }
