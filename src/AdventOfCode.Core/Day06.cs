@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace AdventOfCode.Core
 {
-    public class Day6
+    public class Day06
     {
         public class Part1 : IProblem<long>
         {

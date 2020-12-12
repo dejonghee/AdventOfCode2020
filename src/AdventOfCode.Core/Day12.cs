@@ -103,8 +103,7 @@ namespace AdventOfCode.Core
                             Direction.North => Direction.West,
                             Direction.West => Direction.South,
                             Direction.South => Direction.East,
-                            Direction.East => Direction.North,
-                            _ => throw new NotImplementedException(),
+                            Direction.East => Direction.North
                         };
 
                         return true;
@@ -138,8 +137,7 @@ namespace AdventOfCode.Core
                             Direction.North => Direction.East,
                             Direction.East => Direction.South,
                             Direction.South => Direction.West,
-                            Direction.West => Direction.North,
-                            _ => throw new NotImplementedException(),
+                            Direction.West => Direction.North
                         };
 
                         return true;

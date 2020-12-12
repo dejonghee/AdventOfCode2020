@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace AdventOfCode.Core
 {
-    public class Day5
+    public class Day05
     {
         private const int planeRows = 128;
         private const int planeColumns = 8;

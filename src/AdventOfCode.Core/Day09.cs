@@ -6,7 +6,7 @@ using AdventOfCode.Core.Utils;
 
 namespace AdventOfCode.Core
 {
-    public class Day9
+    public class Day09
     {
         public class Part1 : IProblem<long>
         {
