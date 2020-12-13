@@ -81,17 +81,16 @@ namespace AdventOfCode.UnitTests
             await Validate<Day12, int, int>(2057, 71504);
         }
 
-        //[TestMethod]
-        //public async Task Day13()
-        //{
-        //    var input = ToAsyncEnumerable("a", "b", "c", "d");
-        //    await ValidatePart1<Day13, long, long>(2057, input: input);
-        //}
+        [TestMethod]
+        public async Task Day13()
+        {
+            await Validate<Day13, decimal, decimal>(2845, 487905974205117);
+        }
 
         #region Helpers
 
         private static async Task Validate<TDay, TSolutionPart1, TSolutionPart2>(TSolutionPart1 solutionPart1, TSolutionPart2 solutionPart2)
-            where TDay : class, IDay<TSolutionPart1, TSolutionPart2>, new()
+        where TDay : class, IDay<TSolutionPart1, TSolutionPart2>, new()
         {
             var day = new TDay();
 
@@ -148,7 +147,7 @@ namespace AdventOfCode.UnitTests
         /// </summary>
         private static async IAsyncEnumerable<string> ToAsyncEnumerable(params string[] input)
         {
-            foreach(var str in input)
+            foreach (var str in input)
             {
                 yield return str;
             }
