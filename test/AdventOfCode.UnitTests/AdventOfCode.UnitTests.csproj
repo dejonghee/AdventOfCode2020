@@ -18,9 +18,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Input\*.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Remove="Input\*.txt" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="Input\*.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>
