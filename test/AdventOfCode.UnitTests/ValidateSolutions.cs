@@ -106,6 +106,14 @@ namespace AdventOfCode.UnitTests
         }
 
         [TestMethod]
+        public async Task Day17()
+        {
+            //await Validate<Day17, int, int>(-1, -1);
+            await ValidatePart1<Day17, int, int>(-1);
+            //await ValidatePart2<Day17, int, int>(-1);
+        }
+
+        [TestMethod]
         public async Task Day18()
         {
             await Validate<Day18, long, long>(14006719520523, 545115449981968);
