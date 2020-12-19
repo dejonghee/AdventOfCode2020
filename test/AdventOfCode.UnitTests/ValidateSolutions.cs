@@ -105,7 +105,7 @@ namespace AdventOfCode.UnitTests
             await Validate<Day16, long, long>(29878, 855438643439);
         }
 
-        [TestMethod]
+        [TestMethod, Ignore("No solution yet :(")]
         public async Task Day17()
         {
             //await Validate<Day17, int, int>(-1, -1);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AdventOfCode.Core.Utils;
 
@@ -16,104 +17,63 @@ namespace AdventOfCode.Core
             public async Task<int> SolveAsync(IAsyncEnumerable<string> input)
             {
                 const int cycles = 6;
-                var initialState = await ParseInput(input);
+                var (currentState, size) = await ParseInput(input);
 
-                // Make 2D input 3D.
-                var nextState = new char[initialState.GetLength(0), initialState.GetLength(0), initialState.GetLength(0)];
-                for (var x = 0; x < nextState.GetLength(0); x++)
+                var cycle = 0;
+                while (cycle < cycles)
                 {
-                    for (var y = 0; y < nextState.GetLength(1); y++)
+                    var nextState = new HashSet<(int x, int y, int z)>();
+
+                    for (int x = -cycle; x < size + cycle; x++)
                     {
-                        for (var z = 0; z < nextState.GetLength(2); z++)
+                        for (var y = -cycle; y < size + cycle; y++)
                         {
-                            if (z == 1)
+                            for (var z = -cycle; z < size + cycle; z++)
                             {
-                                nextState[x, y, z] = initialState[x, y];
-                            }
-                            else
-                            {
-                                nextState[x, y, z] = '.';
+                                var active = currentState.Contains((x, y, z));
+                                var neighbors = GetNeighbors(x, y, z);
+                                var activeNeighbors = currentState.Intersect(neighbors).Count();
+
+                                if (active == true && (activeNeighbors == 2 || activeNeighbors == 3))
+                                    nextState.Add((x, y, z));
+
+                                if (active == false && activeNeighbors == 3)
+                                    nextState.Add((x, y, z));
                             }
                         }
                     }
-                }
 
-                // Additional cycles.
-                var currentState = nextState;
-                nextState = new char[currentState.GetLength(0) + 2, currentState.GetLength(0) + 2, currentState.GetLength(0) + 2];
-                for (var iteration = 0; iteration < cycles; iteration++)
-                {
-                    // Where the magic happens.
-                    for (var x = 0; x < nextState.GetLength(0); x++)
-                    {
-                        for (var y = 0; y < nextState.GetLength(1); y++)
-                        {
-                            for (var z = 0; z < nextState.GetLength(2); z++)
-                            {
-                                var isActive = IsActive(currentState, (x, y, z));
-                                var nrOfActiveNeighbors = NumberOfActiveNeighbors(currentState, (x, y, z));
-
-                                nextState[x, y, z] =
-                                    // If a cube is active and exactly 2 or 3 of its neighbors are also active, the cube remains active.
-                                    (isActive && (nrOfActiveNeighbors == 2 || nrOfActiveNeighbors == 3)) ||
-                                    // If a cube is inactive but exactly 3 of its neighbors are active, the cube becomes active.
-                                    (isActive == false && nrOfActiveNeighbors == 3)
-                                    ? '#'
-                                    : '.';
-                            }
-                        }
-                    }
+                    Print(nextState, size, cycle);
 
                     currentState = nextState;
-                    nextState = new char[currentState.GetLength(0) + 2, currentState.GetLength(0) + 2, currentState.GetLength(0) + 2];
+                    cycle++;
                 }
 
-                // Get number of active cubes.
-                var numberOfActiveCubes = 0;
-                for (var x = 0; x < nextState.GetLength(0); x++)
-                    for (var y = 0; y < nextState.GetLength(1); y++)
-                        for (var z = 0; z < nextState.GetLength(2); z++)
-                            numberOfActiveCubes += currentState[x, y, z] == '#' ? 1 : 0;
-
-                return numberOfActiveCubes;
+                return currentState.Count;
             }
 
-            private static async Task<char[,]> ParseInput(IAsyncEnumerable<string> input)
+            private static async Task<(HashSet<(int x, int y, int z)> cubes, int size)> ParseInput(IAsyncEnumerable<string> input)
             {
-                char[,] result = default;
+                var result = new HashSet<(int x, int y, int z)>();
+                var x = 0;
 
-                var lineId = 0;
                 await foreach (var line in input)
                 {
-                    if (result == default)
-                        result = new char[line.Length, line.Length];
-
-                    for (var i = 0; i < line.Length; i++)
+                    for (var y = 0; y < line.Length; y++)
                     {
-                        result[lineId, i] = line[i];
+                        if (line[y] == '#')
+                            result.Add((x, y, 0));
                     }
 
-                    lineId++;
+                    x++;
                 }
 
-                return result;
+                return (result, x);
             }
 
-            private static bool IsActive(char[,,] currentState, (int, int, int) positionNextState)
+            private static HashSet<(int x, int y, int z)> GetNeighbors(int x, int y, int z)
             {
-                var (x, y, z) = positionNextState;
-
-                // New cubes start inactive.
-                if (x == 0 || y == 0 || z == 0 || x == currentState.GetLength(0) || y == currentState.GetLength(1) || z == currentState.GetLength(2))
-                    return false;
-
-                return currentState[x - 1, y - 1, z - 1] == '#';
-            }
-
-            private static int NumberOfActiveNeighbors(char[,,] currentState, (int, int, int) positionNextState)
-            {
-                var (x, y, z) = positionNextState;
-                var numberOfActiveNeighbors = 0;
+                var result = new HashSet<(int x, int y, int z)>(26);
 
                 for (var i = -1; i < 2; i++)
                 {
@@ -121,16 +81,32 @@ namespace AdventOfCode.Core
                     {
                         for (var k = -1; k < 2; k++)
                         {
-                            // Skip current item.
-                            if (i == 0 && j == 0 && k == 0)
-                                continue;
-
-
+                            if ((i == 0 && j == 0 && k == 0) == false)
+                                result.Add((x + i, y + j, z + k));
                         }
                     }
                 }
 
-                return numberOfActiveNeighbors;
+                return result;
+            }
+
+            private static void Print(HashSet<(int x, int y, int z)> state, int size, int cycle)
+            {
+                for (var x = -cycle; x < size + cycle; x++)
+                {
+                    for (var y = -cycle; y < size + cycle; y++)
+                    {
+                        for (var z = -cycle; z < size + cycle; z++)
+                        {
+                            if (state.Contains((x, y, z)))
+                                Console.Write('#');
+                            else
+                                Console.Write('.');
+                        }
+                        Console.WriteLine();
+                    }
+                    Console.WriteLine();
+                }
             }
         }
 
