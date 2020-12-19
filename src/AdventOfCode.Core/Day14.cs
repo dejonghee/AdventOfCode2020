@@ -7,11 +7,10 @@ using AdventOfCode.Core.Utils;
 
 namespace AdventOfCode.Core
 {
-    public class Day14 : IDay<long, long>
+    public class Day14 : Day<long, long>
     {
-        public async Task<long> SolvePart1Async(IAsyncEnumerable<string> input) => await new Part1().SolveAsync(input);
-
-        public async Task<long> SolvePart2Async(IAsyncEnumerable<string> input) => await new Part2().SolveAsync(input);
+        protected override IProblem<long> GetPart1() => new Part1();
+        protected override IProblem<long> GetPart2() => new Part2();
 
         private static readonly Regex InputRegexParser = new Regex(@"^mem\[([0-9]+)\] = ([0-9]+)$", RegexOptions.Compiled);
 
