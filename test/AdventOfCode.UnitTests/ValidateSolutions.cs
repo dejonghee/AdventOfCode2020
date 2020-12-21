@@ -133,6 +133,14 @@ namespace AdventOfCode.UnitTests
             //await ValidatePart2<Day20, long, long>(-1);
         }
 
+        [TestMethod]
+        public async Task Day21()
+        {
+            //await Validate<Day21, long, long>(23497974998093, -1);
+            await ValidatePart1<Day21, int, int>(-1);
+            //await ValidatePart2<Day21, long, long>(-1);
+        }
+
         #region Helpers
 
         private static async Task Validate<TDay, TSolutionPart1, TSolutionPart2>(TSolutionPart1 solutionPart1, TSolutionPart2 solutionPart2)
