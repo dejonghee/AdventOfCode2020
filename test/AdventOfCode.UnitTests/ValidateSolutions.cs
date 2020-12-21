@@ -136,9 +136,7 @@ namespace AdventOfCode.UnitTests
         [TestMethod]
         public async Task Day21()
         {
-            //await Validate<Day21, long, long>(23497974998093, -1);
-            await ValidatePart1<Day21, int, int>(-1);
-            //await ValidatePart2<Day21, long, long>(-1);
+            await Validate<Day21, int, string>(2302, "smfz,vhkj,qzlmr,tvdvzd,lcb,lrqqqsg,dfzqlk,shp");
         }
 
         #region Helpers
