@@ -41,8 +41,6 @@ namespace AdventOfCode.Core
                 return CalculatorScore(winner);
             }
 
-
-
             protected int CalculatorScore(Queue<int> deck)
             {
                 var score = 0;
@@ -64,7 +62,6 @@ namespace AdventOfCode.Core
             public override async Task<int> SolveAsync(IAsyncEnumerable<string> input)
             {
                 var (inputPlayer1, inputPlayer2) = await Parser.ParseInputAsync(input);
-
                 var (player1, player2) = StartNewGame(inputPlayer1, inputPlayer2);
 
                 var winner = player1.Count > 0
