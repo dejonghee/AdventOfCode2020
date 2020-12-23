@@ -16,9 +16,8 @@ namespace AdventOfCode.Core
         {
             public virtual async Task<string> SolveAsync(IAsyncEnumerable<string> input)
             {
-                var cupByLabel = await SolveProblemAsync(input, 100);
-
-                return GenerateResult(cupByLabel);
+                var cupsByLabel = await SolveProblemAsync(input, 100);
+                return GenerateResult(cupsByLabel);
             }
 
             protected async Task<Cup[]> SolveProblemAsync(IAsyncEnumerable<string> input, int iterations)
@@ -123,9 +122,8 @@ namespace AdventOfCode.Core
         {
             public override async Task<string> SolveAsync(IAsyncEnumerable<string> input)
             {
-                var cups = await SolveProblemAsync(input, 10000000);
-
-                return $"{(long)cups[1].Next.Label * (long)cups[1].Next.Next.Label}";
+                var cupsByLabel = await SolveProblemAsync(input, 10000000);
+                return $"{(long)cupsByLabel[1].Next.Label * (long)cupsByLabel[1].Next.Next.Label}";
             }
 
             protected override async Task<(Cup start, int minLabel, int maxLabel)> ParseInputAsync(IAsyncEnumerable<string> input)
